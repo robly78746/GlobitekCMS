@@ -44,7 +44,7 @@
     // TODO: display any form errors here
     // Hint: private/functions.php can help
 	function isValidForm() {
-		$fields = ["first_name", "last_name", "email", "username", "password"]
+		$fields = ["first_name", "last_name", "email", "username", "password"];
 		
 		foreach($fields as $field) {
 			//check all fields are present and filled
@@ -58,14 +58,37 @@
 			}
 		}
 		
+		//first and last name should have at least 2 characters
+		if(!has_length($_POST["first_name"], ['min' => 2])) {
+			return false;
+		}
+		//separate just in case we need to differentiate between the two later
+		if(!has_length($_POST["last_name"], ['min' => 2])) {
+			return false;
+		}
 		
+		//username should have at least 8 characters
+		if(!has_length($_POST["username"], ['min' => 8])) {
+			return false;
+		}
+		
+		//email should contain "@"
+		if(!has_valid_email_format($_POST["email"])) {
+			return false;
+		}
+		
+		return true;
 	}
   ?>
 
   <?php 
   if(is_post_request()) {?>
 	  post
-  <?php } ?>
+  <?php
+	if(isValidForm()){ ?>
+	valid form submitted
+	<?php }
+  } ?>
   <!-- TODO: HTML form goes here -->
   <form action="register.php" method="post">
   <label for="firstname">First Name</label>
