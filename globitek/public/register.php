@@ -106,7 +106,6 @@
 		}
 		$values = " VALUES (". implode(',', $quotedValues) . ');';
 		$sql_query = 'INSERT INTO users '. $fields.$values;
-		echo $sql_query;
 		db_query($conn, $sql_query);
 		db_close($conn);
 	}
