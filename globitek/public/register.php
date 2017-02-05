@@ -102,7 +102,14 @@
 	  post
   <?php
     $errorList = isValidForm();
-	if(empty($errorList)){ ?>
+	if(empty($errorList)){ 
+		$conn = db_connect();
+		$current_dateTime = date("Y-m-d H:i:s");
+		$sql_query = 'INSERT INTO users '. '(first_name, last_name, email, username, created_at) '. "VALUES ('{$first_name}', '{$last_name}', '{$email}', '{$username}', '{$current_dateTime}');";
+		echo $sql_query;
+		db_query($conn, $sql_query);
+		db_close($conn);
+	?>
 	valid form submitted
 	<?php } else { 
 		echo display_errors($errorList);
