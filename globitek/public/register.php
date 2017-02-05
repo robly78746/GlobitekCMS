@@ -109,6 +109,7 @@
 		echo $sql_query;
 		db_query($conn, $sql_query);
 		db_close($conn);
+		redirect_to("registration_success.php");
 	?>
 	valid form submitted
 	<?php } else { 
